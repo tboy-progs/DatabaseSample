@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             _cocktailId = position
             _cocktailName = parent.getItemAtPosition(position) as String
 
-            val tvCocktailName = findViewById<TextView>(R.id.tvLbName)
+            val tvCocktailName = findViewById<TextView>(R.id.tvCocktailName)
             tvCocktailName.text = _cocktailName
 
             val btnSave = findViewById<Button>(R.id.btnSave)
