@@ -39,6 +39,23 @@ class MainActivity : AppCompatActivity() {
 
     fun onSaveButtonClick(view: View) {
         val etNote = findViewById<EditText>(R.id.etNote)
+        val note = etNote.text.toString()
+
+        val db = _helper.writableDatabase
+
+        val sqlDelete = "DELETE FROM cocktailmemos WHERE _id = ?"
+        var stmt = db.compileStatement(sqlDelete)
+        stmt.bindLong(1, _cocktailId.toLong())
+        stmt.executeUpdateDelete()
+
+        val sqlInsert = "INSERT INTO cocktailmemos (_id, name, note) VALUES (?,?,?)"
+
+        stmt = db.compileStatement(sqlInsert)
+        stmt.bindLong(1, _cocktailId.toLong())
+        stmt.bindString(2, _cocktailName)
+        stmt.bindString(3, note)
+        stmt.executeInsert()
+        
         etNote.setText("")
 
         val tvCocktailName = findViewById<TextView>(R.id.tvCocktailName)
