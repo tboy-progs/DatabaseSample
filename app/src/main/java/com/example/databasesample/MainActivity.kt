@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     private var _cocktailId = -1
     private var _cocktailName = ""
 
+    private val _helper = DatabaseHelper(this@MainActivity)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,6 +30,11 @@ class MainActivity : AppCompatActivity() {
 
         val lvCocktail = findViewById<ListView>(R.id.lvCocktail)
         lvCocktail.onItemClickListener = ListItemClickListener()
+    }
+
+    override fun onDestroy() {
+        _helper.close()
+        super.onDestroy()
     }
 
     fun onSaveButtonClick(view: View) {
